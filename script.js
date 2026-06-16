@@ -1,5 +1,41 @@
-const CHECKOUT_1_UNIDADE = "#checkout-1-unidade";
-const CHECKOUT_LEVE_3_PAGUE_2 = "#checkout-leve-3";
+const CHECKOUT_START_URL = "https://api.americanmagichair.com.br/checkout-start.php";
+
+const CHECKOUT_PAGES = {
+  single: "gummy-hair-skin-1-unidade",
+  bundle: "gummy-hair-skin-kit-3-meses"
+};
+
+function getRefFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return (params.get("ref") || "").trim();
+}
+
+function getStoredRef() {
+  return (window.localStorage.getItem("amh_ref") || "").trim();
+}
+
+function saveRef(ref) {
+  if (!ref) return;
+
+  window.localStorage.setItem("amh_ref", ref);
+
+  const expires = new Date();
+  expires.setDate(expires.getDate() + 30);
+
+  document.cookie = `amh_ref=${encodeURIComponent(ref)}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+}
+
+function buildCheckoutUrl(pageSlug, ref) {
+  const url = new URL(CHECKOUT_START_URL);
+
+  url.searchParams.set("page", pageSlug);
+
+  if (ref) {
+    url.searchParams.set("ref", ref);
+  }
+
+  return url.toString();
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
@@ -8,16 +44,23 @@ document.addEventListener("DOMContentLoaded", () => {
     year.textContent = new Date().getFullYear();
   }
 
+  const urlRef = getRefFromUrl();
+  const storedRef = getStoredRef();
+  const ref = urlRef || storedRef;
+
+  if (urlRef) {
+    saveRef(urlRef);
+  }
+
   document.querySelectorAll("[data-checkout]").forEach((link) => {
     const type = link.getAttribute("data-checkout");
+    const pageSlug = CHECKOUT_PAGES[type];
 
-    if (type === "single") {
-      link.setAttribute("href", CHECKOUT_1_UNIDADE);
+    if (!pageSlug) {
+      return;
     }
 
-    if (type === "bundle") {
-      link.setAttribute("href", CHECKOUT_LEVE_3_PAGUE_2);
-    }
+    link.setAttribute("href", buildCheckoutUrl(pageSlug, ref));
   });
 
   const revealItems = document.querySelectorAll(".reveal");
@@ -30,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         entry.target.classList.add("is-visible");
 
         const icons = entry.target.querySelectorAll(".icon-animate");
+
         icons.forEach((icon, index) => {
           icon.style.animationDelay = `${index * 90}ms`;
           icon.classList.add("is-visible");
@@ -55,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (window.innerWidth > 720) return;
 
       const items = Array.from(carousel.querySelectorAll("img"));
+
       if (!items.length) return;
 
       index = (index + 1) % items.length;
@@ -67,12 +112,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let carouselTimer = window.setInterval(moveCarousel, 3600);
 
-    carousel.addEventListener("touchstart", () => {
-      window.clearInterval(carouselTimer);
-    }, { passive: true });
+    carousel.addEventListener(
+      "touchstart",
+      () => {
+        window.clearInterval(carouselTimer);
+      },
+      { passive: true }
+    );
 
-    carousel.addEventListener("touchend", () => {
-      carouselTimer = window.setInterval(moveCarousel, 3600);
-    }, { passive: true });
+    carousel.addEventListener(
+      "touchend",
+      () => {
+        carouselTimer = window.setInterval(moveCarousel, 3600);
+      },
+      { passive: true }
+    );
   }
 });
