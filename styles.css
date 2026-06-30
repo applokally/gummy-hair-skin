@@ -174,11 +174,11 @@ a {
   right: max(32px, calc((100vw - 1120px) / 2));
   bottom: 43px;
   z-index: 3;
-  width: min(570px, calc(100% - 60px));
+  width: min(585px, calc(100% - 60px));
   color: var(--white);
 }
 
-.hero-copy > p {
+.hero-eyebrow {
   margin: 0 0 11px;
   color: var(--white);
   font-size: 11px;
@@ -190,18 +190,15 @@ a {
 }
 
 .hero-copy h1 {
+  max-width: 585px;
   margin: 0;
   color: var(--white);
   font-family: var(--display);
   font-size: clamp(34px, 3.1vw, 47px);
   line-height: 1;
   letter-spacing: -.018em;
+  text-wrap: balance;
   text-shadow: 0 3px 18px rgba(0, 0, 0, .2);
-}
-
-.hero-copy h1 span {
-  display: block;
-  white-space: nowrap;
 }
 
 .hero-description {
@@ -220,6 +217,10 @@ a {
   gap: 10px;
 }
 
+.hero-actions .btn {
+  white-space: normal;
+}
+
 .hero-trust-line {
   display: block;
   margin-top: 13px;
@@ -230,7 +231,7 @@ a {
   text-shadow: 0 2px 12px rgba(0, 0, 0, .16);
 }
 
-/* Remove a origem dos botões duplicados */
+/* Mantido oculto para não duplicar CTAs fora do hero. */
 .mobile-hero-cta {
   display: none !important;
 }
@@ -1151,6 +1152,7 @@ details p {
   }
 
   .hero-copy h1 {
+    max-width: 520px;
     font-size: clamp(30px, 3vw, 41px);
   }
 
@@ -1323,7 +1325,7 @@ details p {
     background: var(--white);
   }
 
-  .hero-copy > p {
+  .hero-eyebrow {
     margin-bottom: 10px;
     color: var(--gold-dark);
     font-size: 10px;
@@ -1331,14 +1333,11 @@ details p {
   }
 
   .hero-copy h1 {
+    max-width: none;
     color: var(--charcoal);
     font-size: clamp(30px, 8vw, 37px);
     line-height: 1.02;
     text-shadow: none;
-  }
-
-  .hero-copy h1 span {
-    white-space: normal;
   }
 
   .hero-description {
@@ -1351,15 +1350,16 @@ details p {
 
   .hero-actions {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, .95fr);
     gap: 10px;
   }
 
   .hero-actions .btn {
     width: 100%;
-    min-height: 50px;
+    min-height: 54px;
     padding: 10px 9px;
     font-size: 9px;
+    line-height: 1.2;
   }
 
   .hero-trust-line {
