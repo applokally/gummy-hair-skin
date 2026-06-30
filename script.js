@@ -1,5 +1,8 @@
 const CHECKOUT_START_URL = "https://api.americanmagichair.com.br/checkout-start.php";
 
+const SINGLE_CHECKOUT_URL =
+  "https://checkout.yapay.com.br/transacao/tedc9e616ccf6e708b5435b3e3255548d";
+
 const CHECKOUT_PAGES = {
   single: "gummy-hair-skin-1-unidade",
   bundle: "gummy-hair-skin-kit-3-meses"
@@ -25,9 +28,18 @@ function saveRef(ref) {
   document.cookie = `amh_ref=${encodeURIComponent(ref)}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
 }
 
-function buildCheckoutUrl(pageSlug, ref) {
-  const url = new URL(CHECKOUT_START_URL);
+function buildCheckoutUrl(type, ref) {
+  if (type === "single") {
+    return SINGLE_CHECKOUT_URL;
+  }
 
+  const pageSlug = CHECKOUT_PAGES[type];
+
+  if (!pageSlug) {
+    return "";
+  }
+
+  const url = new URL(CHECKOUT_START_URL);
   url.searchParams.set("page", pageSlug);
 
   if (ref) {
@@ -54,13 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-checkout]").forEach((link) => {
     const type = link.getAttribute("data-checkout");
-    const pageSlug = CHECKOUT_PAGES[type];
+    const checkoutUrl = buildCheckoutUrl(type, ref);
 
-    if (!pageSlug) {
+    if (!checkoutUrl) {
       return;
     }
 
-    link.setAttribute("href", buildCheckoutUrl(pageSlug, ref));
+    link.setAttribute("href", checkoutUrl);
   });
 
   const revealItems = document.querySelectorAll(".reveal");
@@ -68,7 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+        if (!entry.isIntersecting) {
+          return;
+        }
 
         entry.target.classList.add("is-visible");
 
@@ -96,11 +110,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let index = 0;
 
     const moveCarousel = () => {
-      if (window.innerWidth > 720) return;
+      if (window.innerWidth > 720) {
+        return;
+      }
 
       const items = Array.from(carousel.querySelectorAll("img"));
 
-      if (!items.length) return;
+      if (!items.length) {
+        return;
+      }
 
       index = (index + 1) % items.length;
 
