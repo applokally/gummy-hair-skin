@@ -39,13 +39,16 @@ a {
   text-decoration: none;
 }
 
+h1, h2, h3 {
+  text-wrap: balance; /* UI structural improvement */
+}
+
 .shell {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
 }
 
 /* LOGO */
-
 .logo-header {
   position: absolute;
   top: 22px;
@@ -68,7 +71,6 @@ a {
 }
 
 /* COMPONENTES */
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -83,12 +85,16 @@ a {
   letter-spacing: .06em;
   text-align: center;
   text-transform: uppercase;
-  transition: transform .2s ease, filter .2s ease;
+  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
 }
 
 .btn:hover {
   filter: brightness(1.04);
   transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .btn i {
@@ -98,13 +104,14 @@ a {
 .btn-main {
   color: var(--white);
   background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
-  box-shadow: 0 12px 26px rgba(159, 122, 47, .28);
+  box-shadow: 0 8px 24px rgba(198, 161, 75, 0.28), 0 4px 10px rgba(198, 161, 75, 0.15); /* Premium soft shadow */
 }
 
 .btn-light {
   color: var(--charcoal);
   background: rgba(255, 255, 255, .96);
-  box-shadow: 0 10px 24px rgba(39, 41, 45, .14);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 24px rgba(39, 41, 45, .08), 0 2px 8px rgba(39, 41, 45, .04);
 }
 
 .btn-offer-secondary {
@@ -138,7 +145,6 @@ a {
 }
 
 /* HERO */
-
 .hero {
   position: relative;
   overflow: hidden;
@@ -197,7 +203,6 @@ a {
   font-size: clamp(34px, 3.1vw, 47px);
   line-height: 1;
   letter-spacing: -.018em;
-  text-wrap: balance;
   text-shadow: 0 3px 18px rgba(0, 0, 0, .2);
 }
 
@@ -231,13 +236,11 @@ a {
   text-shadow: 0 2px 12px rgba(0, 0, 0, .16);
 }
 
-/* Mantido oculto para não duplicar CTAs fora do hero. */
 .mobile-hero-cta {
   display: none !important;
 }
 
 /* IDENTIFICAÇÃO */
-
 .identification-section {
   position: relative;
   padding: 112px 0 104px;
@@ -285,7 +288,6 @@ a {
 }
 
 /* A VIRADA */
-
 .turning-point {
   position: relative;
   padding: 88px 0 92px;
@@ -364,7 +366,6 @@ a {
 }
 
 /* PROVA DE CLÍNICA */
-
 .clinic-proof {
   background: var(--charcoal);
 }
@@ -413,7 +414,6 @@ a {
 }
 
 /* PRODUTO */
-
 .about-product {
   position: relative;
   padding: 104px 0;
@@ -451,7 +451,7 @@ a {
 .about-visual img {
   max-height: 510px;
   object-fit: contain;
-  filter: drop-shadow(0 24px 38px rgba(39, 41, 45, .16));
+  filter: drop-shadow(0 20px 32px rgba(39, 41, 45, .12));
 }
 
 .about-copy h2 {
@@ -527,7 +527,6 @@ a {
 }
 
 /* PROTOCOLO */
-
 .protocol-section {
   padding: 100px 0;
   background: var(--white);
@@ -603,7 +602,6 @@ a {
 }
 
 /* BENEFÍCIOS */
-
 .benefits {
   padding: 92px 0;
   background: var(--soft-white);
@@ -629,7 +627,7 @@ a {
 }
 
 .benefit-card + .benefit-card {
-  border-left: 1px solid rgba(39, 41, 45, .14);
+  border-left: 1px solid rgba(39, 41, 45, .08);
 }
 
 .benefit-icon,
@@ -675,7 +673,6 @@ a {
 }
 
 /* COMPARATIVO */
-
 .comparison {
   padding: 92px 0;
   background: var(--white);
@@ -716,11 +713,10 @@ a {
 
 .versus-product img {
   max-height: 360px;
-  filter: drop-shadow(0 20px 34px rgba(39, 41, 45, .14));
+  filter: drop-shadow(0 20px 34px rgba(39, 41, 45, .1));
 }
 
 /* DEPOIMENTOS */
-
 .instagram-section {
   padding: 92px 0;
   background: var(--soft-white);
@@ -736,11 +732,11 @@ a {
 
 .insta-gallery img {
   width: 100%;
-  filter: drop-shadow(0 16px 32px rgba(39, 41, 45, .1));
+  border-radius: 4px;
+  filter: drop-shadow(0 12px 24px rgba(39, 41, 45, .08));
 }
 
 /* OFERTAS */
-
 .offers {
   position: relative;
   padding: 96px 0 84px;
@@ -785,7 +781,7 @@ a {
 
 .offer-option.bundle {
   padding-left: 54px;
-  border-left: 1px solid rgba(198, 161, 75, .5);
+  border-left: 1px solid rgba(198, 161, 75, .3);
 }
 
 .offer-option.featured {
@@ -800,7 +796,7 @@ a {
 }
 
 .offer-product img {
-  filter: drop-shadow(0 20px 30px rgba(39, 41, 45, .16));
+  filter: drop-shadow(0 16px 28px rgba(39, 41, 45, .12));
 }
 
 .single-product img {
@@ -887,12 +883,11 @@ a {
   font-weight: 900;
 }
 
-/* Mantém o valor por dia visualmente ligado ao Kit */
 .daily-value {
   width: min(560px, 58%);
   margin: 30px 0 0 auto;
   padding-top: 17px;
-  border-top: 1px solid rgba(198, 161, 75, .55);
+  border-top: 1px solid rgba(198, 161, 75, .3);
   color: var(--gold-dark);
   font-size: 15px;
   font-weight: 800;
@@ -901,7 +896,6 @@ a {
 }
 
 /* GARANTIA */
-
 .guarantee-section {
   padding: 92px 0;
   background: var(--white);
@@ -912,8 +906,8 @@ a {
   margin: 0 auto;
   padding: 42px 0;
   border: 0;
-  border-top: 1px solid rgba(198, 161, 75, .65);
-  border-bottom: 1px solid rgba(198, 161, 75, .65);
+  border-top: 1px solid rgba(198, 161, 75, .4);
+  border-bottom: 1px solid rgba(198, 161, 75, .4);
   border-radius: 0;
   text-align: center;
   background: transparent;
@@ -945,7 +939,6 @@ a {
 }
 
 /* SELOS */
-
 .safe-buy {
   padding: 76px 0;
   background: var(--soft-white);
@@ -963,7 +956,7 @@ a {
 }
 
 .safe-item + .safe-item {
-  border-left: 1px solid rgba(39, 41, 45, .14);
+  border-left: 1px solid rgba(39, 41, 45, .08);
 }
 
 .safe-icon {
@@ -985,7 +978,6 @@ a {
 }
 
 /* FAQ */
-
 .faq {
   padding: 92px 0;
   background: var(--white);
@@ -997,7 +989,7 @@ a {
 }
 
 details {
-  border-bottom: 1px solid rgba(39, 41, 45, .15);
+  border-bottom: 1px solid rgba(39, 41, 45, .1);
 }
 
 summary {
@@ -1022,7 +1014,6 @@ details p {
 }
 
 /* RODAPÉ */
-
 .footer {
   padding: 38px 20px;
   color: var(--white);
@@ -1045,7 +1036,6 @@ details p {
 }
 
 /* BARRA MOBILE */
-
 .mobile-buy {
   position: fixed;
   right: 10px;
@@ -1058,9 +1048,9 @@ details p {
   padding: 8px 10px;
   border: 1px solid rgba(198, 161, 75, .2);
   border-radius: 18px;
-  background: rgba(255, 255, 255, .97);
-  box-shadow: 0 14px 32px rgba(39, 41, 45, .18);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, .90);
+  box-shadow: 0 16px 36px rgba(39, 41, 45, .22), 0 4px 12px rgba(0, 0, 0, .08);
+  backdrop-filter: blur(16px);
 }
 
 .mobile-buy img {
@@ -1103,10 +1093,9 @@ details p {
 }
 
 /* ANIMAÇÕES */
-
 .reveal {
   opacity: 0;
-  transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Smoother, premium snap */
 }
 
 .reveal-up {
@@ -1143,7 +1132,6 @@ details p {
 }
 
 /* RESPONSIVO */
-
 @media (max-width: 1080px) {
   .hero-copy {
     right: 26px;
@@ -1232,7 +1220,7 @@ details p {
 
   .benefit-card + .benefit-card {
     padding-top: 30px;
-    border-top: 1px solid rgba(39, 41, 45, .14);
+    border-top: 1px solid rgba(39, 41, 45, .08);
     border-left: 0;
   }
 
@@ -1248,7 +1236,7 @@ details p {
   .offer-option.bundle {
     padding-top: 50px;
     padding-left: 0;
-    border-top: 1px solid rgba(198, 161, 75, .5);
+    border-top: 1px solid rgba(198, 161, 75, .3);
     border-left: 0;
   }
 
@@ -1448,7 +1436,7 @@ details p {
 
   .protocol-step + .protocol-step {
     padding-top: 25px;
-    border-top: 1px solid rgba(198, 161, 75, .5);
+    border-top: 1px solid rgba(198, 161, 75, .3);
   }
 
   .insta-gallery {
@@ -1486,7 +1474,7 @@ details p {
   .offer-option.single {
     order: 2;
     padding-top: 46px;
-    border-top: 1px solid rgba(198, 161, 75, .5);
+    border-top: 1px solid rgba(198, 161, 75, .3);
   }
 
   .offer-product {
@@ -1550,7 +1538,7 @@ details p {
 
   .safe-item + .safe-item {
     padding-top: 28px;
-    border-top: 1px solid rgba(39, 41, 45, .14);
+    border-top: 1px solid rgba(39, 41, 45, .08);
   }
 
   .mobile-buy span {
